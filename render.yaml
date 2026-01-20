@@ -3,4 +3,4 @@ services:
     name: neon-snake-game
     env: static
     buildCommand: ""
-    publishPath: "."
+    staticPublishPath: "."
