@@ -1,0 +1,6 @@
+services:
+  - type: static
+    name: neon-snake-game
+    env: static
+    buildCommand: ""
+    publishPath: "."

@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Snake Game - Multiplayer Edition</title>
+    <link rel="stylesheet" href="snake.css">
+</head>
+
+<body>
+    <!-- Mode Selection Screen -->
+    <div id="modeScreen" class="mode-screen">
+        <div class="mode-content">
+            <h1>🐍 Choose Your Game Mode</h1>
+            <p class="subtitle">Select how you want to play</p>
+
+            <div class="mode-grid">
+                <!-- Mode 1: Classic Solo -->
+                <div class="mode-card" data-mode="1">
+                    <div class="mode-image">
+                        <img src="classic_solo.png" alt="Classic Solo">
+                    </div>
+                    <h2>🎯 Classic Solo</h2>
+                    <div class="mode-features">
+                        <span class="feature">👤 Single Player</span>
+                        <span class="feature">📉 Shrinking Field</span>
+                        <span class="feature">💀 Wall Death</span>
+                    </div>
+                    <p class="mode-description">Test your skills! The field shrinks with every point. Hit the wall and
+                        it's game over!</p>
+                    <button class="select-mode-btn" data-mode="1">Play Solo</button>
+                </div>
+
+                <!-- Mode 2: Competitive Battle -->
+                <div class="mode-card" data-mode="2">
+                    <div class="mode-image">
+                        <img src="competitive_battle.png" alt="Competitive Battle">
+                    </div>
+                    <h2>⚔️ Competitive Battle</h2>
+                    <div class="mode-features">
+                        <span class="feature">👥 2 Players</span>
+                        <span class="feature">💀 Wall Death</span>
+                        <span class="feature">🏆 Eliminate Opponent</span>
+                    </div>
+                    <p class="mode-description">Battle your friend! Collect points and force your opponent into walls or
+                        your body!</p>
+                    <button class="select-mode-btn" data-mode="2">Start Battle</button>
+                </div>
+
+                <!-- Mode 3: Infinite Arena -->
+                <div class="mode-card" data-mode="3">
+                    <div class="mode-image">
+                        <img src="infinite_arena.png" alt="Infinite Arena">
+                    </div>
+                    <h2>🌀 Infinite Arena</h2>
+                    <div class="mode-features">
+                        <span class="feature">👥 2 Players</span>
+                        <span class="feature">🔄 Wrap-Around</span>
+                        <span class="feature">🎯 Body Collision Only</span>
+                    </div>
+                    <p class="mode-description">Endless battlefield! Walls wrap around. Only body collisions count!</p>
+                    <button class="select-mode-btn" data-mode="3">Enter Arena</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Start/Settings Screen -->
+    <div id="settingsScreen" class="settings-screen" style="display: none;">
+        <div class="settings-content">
+            <button id="backToModeBtn" class="back-btn">⬅ Back to Modes</button>
+            <h1>🐍 Snake Game - Multiplayer</h1>
+            <p class="subtitle">Configure your game settings</p>
+
+            <div class="settings-tabs">
+                <button class="tab-btn active" data-tab="names">👤 Names</button>
+                <button class="tab-btn" data-tab="skins">🎨 Skins</button>
+                <button class="tab-btn" data-tab="audio">🔊 Audio</button>
+            </div>
+
+            <!-- Names Tab -->
+            <div id="namesTab" class="tab-content active">
+                <div class="name-inputs">
+                    <div class="name-input-group">
+                        <label for="player1Name">Player 1 Name</label>
+                        <input type="text" id="player1Name" maxlength="15" placeholder="Enter name..." value="Player 1">
+                        <small>Uses WASD keys</small>
+                    </div>
+
+                    <div class="name-input-group">
+                        <label for="player2Name">Player 2 Name</label>
+                        <input type="text" id="player2Name" maxlength="15" placeholder="Enter name..." value="Player 2">
+                        <small>Uses Arrow keys</small>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Skins Tab -->
+            <div id="skinsTab" class="tab-content">
+                <div class="skins-section">
+                    <h3><span id="player1SkinSettingsLabel">Player 1</span> Skin</h3>
+                    <div class="skin-grid">
+                        <button class="skin-btn active" data-skin="classic" data-player="1">
+                            <div class="skin-preview" style="background: linear-gradient(135deg, #4cd137, #44bd32)">
+                            </div>
+                            <span>Classic</span>
+                        </button>
+                        <button class="skin-btn" data-skin="ocean" data-player="1">
+                            <div class="skin-preview" style="background: linear-gradient(135deg, #00d2ff, #3a7bd5)">
+                            </div>
+                            <span>Ocean</span>
+                        </button>
+                        <button class="skin-btn" data-skin="fire" data-player="1">
+                            <div class="skin-preview" style="background: linear-gradient(135deg, #ff6b6b, #ee5a24)">
+                            </div>
+                            <span>Fire</span>
+                        </button>
+                        <button class="skin-btn" data-skin="purple" data-player="1">
+                            <div class="skin-preview" style="background: linear-gradient(135deg, #a29bfe, #6c5ce7)">
+                            </div>
+                            <span>Purple</span>
+                        </button>
+                        <button class="skin-btn" data-skin="gold" data-player="1">
+                            <div class="skin-preview" style="background: linear-gradient(135deg, #ffd700, #ff8c00)">
+                            </div>
+                            <span>Gold</span>
+                        </button>
+                        <button class="skin-btn" data-skin="rainbow" data-player="1">
+                            <div class="skin-preview"
+                                style="background: linear-gradient(135deg, #ff0080, #ff8c00, #40ff00, #00d4ff, #8000ff)">
+                            </div>
+                            <span>Rainbow</span>
+                        </button>
+                    </div>
+
+                    <h3 style="margin-top: 30px;"><span id="player2SkinSettingsLabel">Player 2</span> Skin</h3>
+                    <div class="skin-grid">
+                        <button class="skin-btn" data-skin="classic" data-player="2">
+                            <div class="skin-preview" style="background: linear-gradient(135deg, #4cd137, #44bd32)">
+                            </div>
+                            <span>Classic</span>
+                        </button>
+                        <button class="skin-btn active" data-skin="ocean" data-player="2">
+                            <div class="skin-preview" style="background: linear-gradient(135deg, #00d2ff, #3a7bd5)">
+                            </div>
+                            <span>Ocean</span>
+                        </button>
+                        <button class="skin-btn" data-skin="fire" data-player="2">
+                            <div class="skin-preview" style="background: linear-gradient(135deg, #ff6b6b, #ee5a24)">
+                            </div>
+                            <span>Fire</span>
+                        </button>
+                        <button class="skin-btn" data-skin="purple" data-player="2">
+                            <div class="skin-preview" style="background: linear-gradient(135deg, #a29bfe, #6c5ce7)">
+                            </div>
+                            <span>Purple</span>
+                        </button>
+                        <button class="skin-btn" data-skin="gold" data-player="2">
+                            <div class="skin-preview" style="background: linear-gradient(135deg, #ffd700, #ff8c00)">
+                            </div>
+                            <span>Gold</span>
+                        </button>
+                        <button class="skin-btn" data-skin="rainbow" data-player="2">
+                            <div class="skin-preview"
+                                style="background: linear-gradient(135deg, #ff0080, #ff8c00, #40ff00, #00d4ff, #8000ff)">
+                            </div>
+                            <span>Rainbow</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Audio Tab -->
+            <div id="audioTab" class="tab-content">
+                <div class="audio-settings">
+                    <div class="audio-control">
+                        <div class="audio-label">
+                            <span>🎵 Background Music</span>
+                            <span class="audio-status" id="musicStatus">On</span>
+                        </div>
+                        <div class="slider-container">
+                            <input type="range" id="musicVolume" min="0" max="100" value="50" class="volume-slider">
+                            <button id="musicToggle" class="toggle-btn">🔊</button>
+                        </div>
+                    </div>
+
+                    <div class="audio-control">
+                        <div class="audio-label">
+                            <span>🔔 Sound Effects</span>
+                            <span class="audio-status" id="sfxStatus">On</span>
+                        </div>
+                        <div class="slider-container">
+                            <input type="range" id="sfxVolume" min="0" max="100" value="70" class="volume-slider">
+                            <button id="sfxToggle" class="toggle-btn">🔊</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <button id="startGameBtn" class="start-btn">Start Game</button>
+        </div>
+    </div>
+
+    <!-- Game Screen -->
+    <div class="game-screen" id="gameScreen" style="display: none;">
+        <!-- Top Bar with Scores -->
+        <div class="top-bar">
+            <div class="player-info">
+                <span class="player-name player1-color" id="gamePlayer1Name">Player 1</span>
+                <span class="player-score player1-color" id="gamePlayer1Score">0</span>
+            </div>
+
+            <div class="game-controls">
+                <button id="musicBtnGame" class="icon-btn" title="Toggle Music">🎵</button>
+                <button id="pauseBtn" class="icon-btn" title="Pause (SPACE)">⏸</button>
+                <button id="settingsBtn" class="icon-btn" title="Settings">⚙️</button>
+            </div>
+
+            <div class="player-info">
+                <span class="player-score player2-color" id="gamePlayer2Score">0</span>
+                <span class="player-name player2-color" id="gamePlayer2Name">Player 2</span>
+            </div>
+        </div>
+
+        <!-- Game Canvas Container -->
+        <div class="canvas-wrapper">
+            <canvas id="gameCanvas"></canvas>
+            <div id="gameOverlay" class="overlay hidden">
+                <div class="overlay-content">
+                    <h2 id="overlayTitle">Game Paused</h2>
+                    <p id="overlayMessage">Press SPACE or click Resume to continue</p>
+                    <button id="resumeBtn" class="overlay-btn">Resume Game</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bottom Instructions -->
+        <div class="bottom-bar">
+            <span><span id="bottomPlayer1Name">Player 1</span>: WASD</span>
+            <span>🍎 Eat food to grow</span>
+            <span><span id="bottomPlayer2Name">Player 2</span>: Arrow Keys</span>
+        </div>
+    </div>
+
+    <script src="snake.js"></script>
+</body>
+
+</html>
